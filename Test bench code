@@ -1,0 +1,68 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity alu_4bit_tb is
+end alu_4bit_tb;
+
+architecture Behavioral of alu_4bit_tb is
+
+component alu_4bit
+    Port (
+        A      : in  STD_LOGIC_VECTOR(3 downto 0);
+        B      : in  STD_LOGIC_VECTOR(3 downto 0);
+        Sel    : in  STD_LOGIC_VECTOR(2 downto 0);
+        Result : out STD_LOGIC_VECTOR(3 downto 0)
+    );
+end component;
+
+signal A      : STD_LOGIC_VECTOR(3 downto 0);
+signal B      : STD_LOGIC_VECTOR(3 downto 0);
+signal Sel    : STD_LOGIC_VECTOR(2 downto 0);
+signal Result : STD_LOGIC_VECTOR(3 downto 0);
+
+begin
+
+UUT: alu_4bit
+port map(
+    A => A,
+    B => B,
+    Sel => Sel,
+    Result => Result
+);
+
+process
+begin
+
+    A <= "0101";
+    B <= "0011";
+
+    Sel <= "000";  -- Add
+    wait for 20 ns;
+
+    Sel <= "001";  -- Subtract
+    wait for 20 ns;
+
+    Sel <= "010";  -- AND
+    wait for 20 ns;
+
+    Sel <= "011";  -- OR
+    wait for 20 ns;
+
+    Sel <= "100";  -- XOR
+    wait for 20 ns;
+
+    Sel <= "101";  -- NOT
+    wait for 20 ns;
+
+    Sel <= "110";  -- Shift Left
+    wait for 20 ns;
+
+    Sel <= "111";  -- Shift Right
+    wait for 20 ns;
+
+    wait;
+
+end process;
+
+end Behavioral;
